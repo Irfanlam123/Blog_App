@@ -52,13 +52,13 @@ export default function Blog() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="max-w-6xl mx-auto px-6 py-8 ">
       {blogPosts.length === 0 ? (
         <div className="flex justify-center items-center h-64">
           <p className="text-gray-600">No blog posts found.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 ">
           <div className="lg:col-span-2">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Latest Blog Posts</h1>
             {/* Blog cards */}

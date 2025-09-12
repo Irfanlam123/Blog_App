@@ -102,17 +102,13 @@ export default function Contact() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus("success");
@@ -123,8 +119,6 @@ export default function Contact() {
         subject: "",
         message: "",
       });
-
-      // Clear success message after 3 seconds
       setTimeout(() => setSubmitStatus(null), 3000);
     }, 1500);
   };
@@ -132,105 +126,73 @@ export default function Contact() {
   return (
     <div className="bg-gray-50">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-6">Get in Touch</h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Get in Touch
+        </h1>
+        <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
           Have a question, want to collaborate, or just say hello? We'd love to
           hear from you.
         </p>
       </section>
 
       {/* Contact Form & Info Section */}
-      <section className="min-h-screen flex justify-center items-center ml-[358px]">
-        <div className="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-3 gap-8">
-          {/* Contact Form Card */}
-          <div className="lg:col-span-1 flex">
-            <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100 w-full max-w-2xl flex flex-col justify-between">
-              <h2 className="text-xl font-sans text-gray-900 mb-8">
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
+              <h2 className="text-2xl font-sans text-gray-900 mb-6">
                 Send us a message
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4 flex-1">
-                {/* Name Row */}
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
-                      placeholder="John"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
-                      placeholder="Doe"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
-                    placeholder="john@example.com"
-                    required
-                  />
-                </div>
-
-                {/* Subject */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject
-                  </label>
                   <input
                     type="text"
-                    name="subject"
-                    value={formData.subject}
+                    name="firstName"
+                    value={formData.firstName}
                     onChange={handleInputChange}
+                    placeholder="First Name"
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
-                    placeholder="What's this about?"
                     required
                   />
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
                     onChange={handleInputChange}
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300 resize-none"
-                    placeholder="Tell us more about your inquiry..."
+                    placeholder="Last Name"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
                     required
                   />
                 </div>
-
-                {/* Submit Button */}
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Email"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
+                  required
+                />
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  placeholder="Subject"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300"
+                  required
+                />
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={5}
+                  placeholder="Message"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-300 resize-none"
+                  required
+                />
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -238,10 +200,8 @@ export default function Contact() {
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
-
-                {/* Success Message */}
                 {submitStatus === "success" && (
-                  <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-green-700">
+                  <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-green-700 mt-2 text-center">
                     Message sent successfully! We'll get back to you soon.
                   </div>
                 )}
@@ -250,92 +210,60 @@ export default function Contact() {
           </div>
 
           {/* Right Sidebar */}
-          <div className="space-y-8 flex flex-col justify-between">
-            {/* Direct Contact Card */}
+          <div className="space-y-6">
+            {/* Contact Info */}
             <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
-              <h2 className="text-xl font-sans text-gray-900 mb-2">
-                Direct Contact
+              <h2 className="text-xl font-sans text-gray-900 mb-4">
+                Contact Info
               </h2>
-              <div className="space-y-3 mb-4">
-                {contactInfo.map((contact, index) => (
-                  <div key={index} className="flex items-center">
-                    <span className="text-sm mr-4 bg-gray-100 p-2 rounded-lg">
-                      {contact.icon}
-                    </span>
+              <div className="space-y-3">
+                {contactInfo.map((c, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <span className="text-lg">{c.icon}</span>
                     <div>
-                      <p className="text-sm font-sans text-gray-500">
-                        {contact.type}
-                      </p>
-                      <p className="text-gray-900 font-sans">{contact.value}</p>
+                      <p className="text-sm text-gray-500">{c.type}</p>
+                      <p className="text-gray-900 font-medium">{c.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            {/* socialMedia card  */}
 
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-              <h2 className="text-xl font-sans text-gray-800 mb-4">
+            {/* Social Media */}
+            <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
+              <h2 className="text-xl font-sans text-gray-900 mb-4">
                 Follow Us
               </h2>
-
-              <div className="space-y-4">
-                {/* Twitter */}
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Twitter</p>
-                  <div className="flex justify-between items-center">
-                    <p className="text-sm font-sans text-gray-900">
-                      @minimal.blog
-                    </p>
-                    <p className="text-sm text-gray-500">12.5K followers</p>
+              <div className="space-y-3">
+                {socialMedia.map((s, i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <span>{s.icon}</span>
+                      <p className="font-medium text-gray-900">{s.handle}</p>
+                    </div>
+                    <p className="text-sm text-gray-500">{s.followers}</p>
                   </div>
-                </div>
-
-                {/* LinkedIn */}
-                <div>
-                  <p className="text-sm font-medium text-gray-600">LinkedIn</p>
-                  <div className="flex justify-between items-center">
-                    <p className="text-sm font-sans text-gray-900">
-                      Minimal Blog
-                    </p>
-                    <p className="text-sm text-gray-500">8.2K followers</p>
-                  </div>
-                </div>
-
-                {/* GitHub */}
-                <div>
-                  <p className="text-sm font-medium text-gray-600">GitHub</p>
-                  <div className="flex justify-between items-center">
-                    <p className="text-sm font-sans text-gray-900">
-                      minimal-blog
-                    </p>
-                    <p className="text-sm text-gray-500">3.1K stars</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Response Time Card */}
-            <div className="bg-white rounded-3xl p-4 shadow-lg border border-gray-100">
+            {/* Response Times */}
+            <div className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
               <h2 className="text-xl font-sans text-gray-900 mb-4">
                 Response Time
               </h2>
-              <div className="space-y-2 space-x-1">
-                {responseInfo.map((info, index) => (
+              <div className="space-y-3">
+                {responseInfo.map((r, i) => (
                   <div
-                    key={index}
-                    className="flex items-center justify-between p-2 bg-gray-50 rounded-xl"
+                    key={i}
+                    className="flex justify-between items-center p-2 bg-gray-50 rounded-xl"
                   >
-                    <div className="flex items-center">
-                      <span className=" font-sans mr-4">{info.icon}</span>
-                      <div>
-                        <p className="font-sans text-sm text-gray-900">
-                          {info.title}
-                        </p>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <span>{r.icon}</span>
+                      <p className="text-gray-900 font-medium">{r.title}</p>
                     </div>
                     <span className="text-sm bg-white px-3 py-1 rounded-full border border-gray-200 text-gray-700">
-                      {info.time}
+                      {r.time}
                     </span>
                   </div>
                 ))}
@@ -346,8 +274,8 @@ export default function Contact() {
       </section>
 
       {/* FAQ Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center mb-16">
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions
           </h2>
@@ -356,19 +284,19 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {faqs.map((faq, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {faqs.map((faq, i) => (
             <div
-              key={index}
-              className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+              key={i}
+              className="bg-white rounded-3xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="flex items-start mb-4">
-                <span className="text-2xl mr-4">❓</span>
-                <h3 className="text-xl font-semibold text-gray-900">
+              <div className="flex items-start mb-2 gap-3">
+                <span className="text-2xl">❓</span>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900">
                   {faq.question}
                 </h3>
               </div>
-              <p className="text-gray-600 leading-relaxed pl-10">
+              <p className="text-gray-600 text-sm md:text-base pl-9">
                 {faq.answer}
               </p>
             </div>
