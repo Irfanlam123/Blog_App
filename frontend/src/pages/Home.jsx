@@ -26,7 +26,7 @@ export default function Home() {
           {/* Buttons Section */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Link
-              to="/signup"
+              to="/login"
               className="bg-black text-white font-sans text-sm px-7 py-3 rounded-full border border-black hover:bg-gray-800 transition-colors"
             >
               Sign up for free
