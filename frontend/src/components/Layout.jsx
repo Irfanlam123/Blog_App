@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { IoMenu, IoClose, IoChevronDown, IoChevronUp } from "react-icons/io5";
 
 export default function Layout() {
@@ -8,6 +8,15 @@ export default function Layout() {
   const [homeDropdownOpen, setHomeDropdownOpen] = useState(false);
   const [dropdownHover, setDropdownHover] = useState(false);
 
+  const location = useLocation();
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setHomeDropdownOpen(false);
+  }, [location]);
+
+  // Scroll effect
   useEffect(() => {
     let ticking = false;
 
@@ -24,11 +33,6 @@ export default function Layout() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleNavClick = () => {
-    setMobileMenuOpen(false);
-    setHomeDropdownOpen(false);
-  };
 
   const toggleHomeDropdown = () => {
     setHomeDropdownOpen((prev) => !prev);
@@ -59,35 +63,22 @@ export default function Layout() {
                   <IoMenu className="text-2xl text-gray-700" />
                 )}
               </button>
-              <NavLink to="/" onClick={handleNavClick}>
+              <NavLink to="/">
                 <img
-                  src="./src/assets/logo.jpg"
+                  src="./logo.jpg" // Changed to absolute path
                   alt="Logo"
                   className="w-8 h-8 rounded-full"
                 />
               </NavLink>
             </div>
 
-            {/* Mobile Center: Empty */}
-            <div className="md:hidden flex-1"></div>
-
-            {/* Mobile Right: Sign In */}
-            <Link
-              to="/login"
-              className="md:hidden bg-gray-900 text-white font-sans text-sm px-4 py-2 rounded-full border border-gray-900 hover:bg-gray-800 transition-colors"
-              onClick={handleNavClick}
-            >
-              Sign in
-            </Link>
-
-            {/* Desktop Logo & Nav */}
+            {/* Desktop Logo */}
             <NavLink
               to="/"
               className="hidden md:flex text-sm font-semibold font-sans text-gray-900 tracking-tight hover:text-gray-700 transition-colors px-4 py-2 rounded-full hover:bg-gray-100/50 items-center"
-              onClick={handleNavClick}
             >
               <img
-                src="./src/assets/logo.jpg"
+                src="/logo.jpg" // Changed to absolute path
                 alt="Logo"
                 className="w-8 h-8 mr-2 rounded-full"
               />
@@ -95,9 +86,9 @@ export default function Layout() {
             </NavLink>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-1 relative">
+            <div className="hidden md:flex space-x-1 relative items-center">
               {/* Pages with Dropdown */}
-              <div 
+              <div
                 className="relative"
                 onMouseEnter={() => {
                   setHomeDropdownOpen(true);
@@ -105,12 +96,11 @@ export default function Layout() {
                 }}
                 onMouseLeave={() => {
                   setDropdownHover(false);
-                  // Close dropdown only after a short delay to allow clicking
                   setTimeout(() => {
                     if (!dropdownHover) {
                       setHomeDropdownOpen(false);
                     }
-                  }, 300);
+                  }, 200);
                 }}
               >
                 <button
@@ -141,14 +131,12 @@ export default function Layout() {
                   <NavLink
                     to="/blogs"
                     className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    onClick={handleNavClick}
                   >
                     Blog
                   </NavLink>
                   <NavLink
                     to="/docs"
                     className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors rounded-b-lg"
-                    onClick={handleNavClick}
                   >
                     Docs
                   </NavLink>
@@ -164,7 +152,6 @@ export default function Layout() {
                       : "text-gray-600 hover:bg-gray-100/60"
                   }`
                 }
-                onClick={handleNavClick}
               >
                 About
               </NavLink>
@@ -177,7 +164,6 @@ export default function Layout() {
                       : "text-gray-600 hover:bg-gray-100/60"
                   }`
                 }
-                onClick={handleNavClick}
               >
                 Contact
               </NavLink>
@@ -188,7 +174,6 @@ export default function Layout() {
               <Link
                 to="/login"
                 className="bg-gray-50 text-black font-sans text-sm px-4 py-2 rounded-full border-2 border-gray-400 hover:bg-gray-200 transition-colors"
-                onClick={handleNavClick}
               >
                 Sign in
               </Link>
@@ -216,7 +201,6 @@ export default function Layout() {
                         : "text-gray-700 hover:bg-gray-100"
                     }`
                   }
-                  onClick={handleNavClick}
                 >
                   Home
                 </NavLink>
@@ -229,7 +213,6 @@ export default function Layout() {
                         : "text-gray-700 hover:bg-gray-100"
                     }`
                   }
-                  onClick={handleNavClick}
                 >
                   Blogs
                 </NavLink>
@@ -242,7 +225,6 @@ export default function Layout() {
                         : "text-gray-700 hover:bg-gray-100"
                     }`
                   }
-                  onClick={handleNavClick}
                 >
                   Docs
                 </NavLink>
@@ -255,7 +237,6 @@ export default function Layout() {
                         : "text-gray-700 hover:bg-gray-100"
                     }`
                   }
-                  onClick={handleNavClick}
                 >
                   About
                 </NavLink>
@@ -268,7 +249,6 @@ export default function Layout() {
                         : "text-gray-700 hover:bg-gray-100"
                     }`
                   }
-                  onClick={handleNavClick}
                 >
                   Contact
                 </NavLink>
@@ -276,7 +256,6 @@ export default function Layout() {
                   <Link
                     to="/login"
                     className="block px-4 py-3 rounded-lg bg-gray-900 text-white text-center hover:bg-gray-800 transition-colors"
-                    onClick={handleNavClick}
                   >
                     Sign in
                   </Link>

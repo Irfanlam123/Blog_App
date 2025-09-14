@@ -25,7 +25,6 @@ export default function BlogDetails() {
           setComments(data.data.comments || []);
         } else throw new Error(data.error || "Failed to fetch blog post");
       } catch (err) {
-        console.error("Error fetching blog post:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -44,9 +43,9 @@ export default function BlogDetails() {
       id: Date.now(),
       user: userName,
       text: commentText,
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      date: new Date().toLocaleDateString(),
       likes: 0,
-      replies: []
+      replies: [],
     };
     setComments([...comments, newComment]);
   };
@@ -54,25 +53,19 @@ export default function BlogDetails() {
   const handleReply = (parentId, replyText) => {
     const newReply = {
       id: Date.now(),
-      user: "Current User", // You would replace this with actual user data
+      user: "Current User",
       text: replyText,
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      date: new Date().toLocaleDateString(),
       likes: 0,
-      replies: []
+      replies: [],
     };
 
     const addReplyToComment = (commentsArray, parentId) => {
-      return commentsArray.map(comment => {
+      return commentsArray.map((comment) => {
         if (comment.id === parentId) {
-          return {
-            ...comment,
-            replies: [...(comment.replies || []), newReply]
-          };
+          return { ...comment, replies: [...(comment.replies || []), newReply] };
         } else if (comment.replies && comment.replies.length > 0) {
-          return {
-            ...comment,
-            replies: addReplyToComment(comment.replies, parentId)
-          };
+          return { ...comment, replies: addReplyToComment(comment.replies, parentId) };
         }
         return comment;
       });
@@ -83,19 +76,8 @@ export default function BlogDetails() {
 
   if (loading) {
     return (
-      <div className="max-w-5xl mx-auto p-6">
-        <div className="mt-6 py-4">
-          <Link
-            to="/blogs"
-            className="inline-flex items-center gap-1 px-4 py-2 text-sm text-gray-900 bg-gray-50 rounded-full shadow-2xl"
-          >
-            <IoIosArrowRoundBack className="text-2xl" />
-            Back to all posts
-          </Link>
-        </div>
-        <div className="flex justify-center items-center h-64">
-          <p className="text-gray-600">Loading blog post...</p>
-        </div>
+      <div className="max-w-5xl mx-auto p-6 flex justify-center items-center h-64">
+        <p className="text-gray-600">Loading blog post...</p>
       </div>
     );
   }
@@ -118,7 +100,6 @@ export default function BlogDetails() {
 
   return (
     <div className="max-w-5xl mx-auto p-6 relative">
-      {/* Back Link */}
       <div className="mt-6 py-4">
         <Link
           to="/blogs"
@@ -129,7 +110,6 @@ export default function BlogDetails() {
         </Link>
       </div>
 
-      {/* Blog Content */}
       <img src={post.image} alt={post.title} className="w-full h-96 object-cover rounded-xl mb-6" />
       <h1 className="text-3xl font-bold mb-3 text-gray-900">{post.title}</h1>
       <div className="flex items-center text-sm text-gray-500 mb-6">
@@ -138,29 +118,20 @@ export default function BlogDetails() {
         <span>{post.readTime}</span>
       </div>
       <p className="text-lg text-gray-700 mb-8 leading-relaxed">{post.excerpt}</p>
-      <div className="prose max-w-none">
+      <div className="prose max-w-none mb-8">
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">{post.content}</p>
       </div>
 
-      {/* Comments Section */}
-      <CommentsSection 
-        comments={comments} 
-        onAddComment={handleAddComment}
-        onReply={handleReply}
-      />
+      <CommentsSection comments={comments} onAddComment={handleAddComment} onReply={handleReply} />
 
-      {/* Floating Action Buttons */}
+      {/* Floating Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
         <button
           onClick={handleLike}
           className="flex items-center gap-2 px-4 py-3 bg-white text-gray-700 rounded-full shadow-lg hover:bg-gray-50 transition-all duration-200 border border-gray-200"
         >
-          {isLiked ? (
-            <IoIosHeart className="text-xl text-red-500" />
-          ) : (
-            <IoIosHeartEmpty className="text-xl" />
-          )}
-          <span className="text-sm font-medium"></span>
+          {isLiked ? <IoIosHeart className="text-xl text-red-500" /> : <IoIosHeartEmpty className="text-xl" />}
+          <span>{likes}</span>
         </button>
         <button
           onClick={() =>

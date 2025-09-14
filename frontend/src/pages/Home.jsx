@@ -1,6 +1,7 @@
 import Footer from "../components/Footer";
 import Blog from "../pages/Blog";
 import { Link } from "react-router-dom";
+import Docs from "./Doc/Docs";
 
 export default function Home() {
   return (
@@ -47,7 +48,9 @@ export default function Home() {
       {/* <div>
         <Doc/>
       </div> */}
-
+<div>
+  <Docs/>
+</div>
       <Footer />
     </div>
   );
