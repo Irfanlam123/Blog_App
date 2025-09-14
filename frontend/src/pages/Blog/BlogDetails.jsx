@@ -16,7 +16,7 @@ export default function BlogDetails() {
     const fetchBlogPost = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/api/blogs/${id}`);
+        const response = await fetch(`http://localhost:5000/api/blogs/${id}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         if (data.success) {

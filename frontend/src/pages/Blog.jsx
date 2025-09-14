@@ -8,7 +8,7 @@ export default function Blog() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/blogs") // Changed to port 5000
+    fetch("http://localhost:5000/api/blogs") // Changed to port 5000
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

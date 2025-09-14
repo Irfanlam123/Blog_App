@@ -1,9 +1,10 @@
 const Blog = require("../models/blogModel.js");
+const { v4: uuidv4 } = require("uuid"); // UUID for random IDs
 
-// Get all blogs (with sorting by date)
+// Get all blogs
 const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ date: -1, createdAt: -1 }); // Sort by date (newest first)
+    const blogs = await Blog.find().sort({ date: -1, createdAt: -1 });
     return res.status(200).json({
       success: true,
       count: blogs.length,
@@ -50,30 +51,24 @@ const getBlogById = async (req, res) => {
   }
 };
 
-// Create a new blog
+// Create a new blog with random ID
 const createBlog = async (req, res) => {
   try {
-    const { id, title, excerpt, date, readTime, image, content } = req.body;
-
-    // Check if blog with same ID already exists
-    const existingBlog = await Blog.findOne({ id });
-    if (existingBlog) {
-      return res.status(409).json({
-        success: false,
-        error: "A blog with this ID already exists"
-      });
-    }
+    const { title, excerpt, date, readTime, image, content } = req.body;
 
     // Simple validation
-    if (!id || !title || !excerpt || !date || !readTime || !image || !content) {
+    if (!title || !excerpt || !date || !readTime || !image || !content) {
       return res.status(400).json({ 
         success: false,
         error: "All fields are required" 
       });
     }
 
+    // Generate a random unique ID
+    const id = uuidv4();
+
     const blog = await Blog.create({ 
-      id, 
+      id,
       title: title.trim(), 
       excerpt: excerpt.trim(), 
       date, 
@@ -108,5 +103,4 @@ const createBlog = async (req, res) => {
   }
 };
 
-// Export
 module.exports = { getBlogs, getBlogById, createBlog };

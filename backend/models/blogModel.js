@@ -4,12 +4,12 @@ const blogSchema = new mongoose.Schema({
   id: { 
     type: String, 
     required: true, 
-    unique: true // Add unique constraint to prevent duplicate IDs
+    unique: true // Prevent duplicate IDs
   },
   title: { 
     type: String, 
     required: true,
-    trim: true // Remove extra spaces
+    trim: true
   },
   excerpt: { 
     type: String, 
@@ -33,8 +33,5 @@ const blogSchema = new mongoose.Schema({
     required: true 
   },
 }, { timestamps: true });
-
-// Add index on id field for faster queries
-blogSchema.index({ id: 1 });
 
 module.exports = mongoose.model("Blog", blogSchema);
